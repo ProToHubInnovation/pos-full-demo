@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>ProtoHub Food Ordering</title>
+    <meta name="description" content="ProtoHub Express — order fresh Thai food from your mobile. Local-first, offline-ready." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet" />
+    <style>
+      .demo-banner {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
+        background: linear-gradient(90deg, #06b6d4 0%, #3b82f6 100%);
+        color: #fff;
+        font-family: 'Outfit', sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 8px 16px;
+        flex-wrap: wrap;
+        box-shadow: 0 4px 20px rgba(6, 182, 212, 0.3);
+      }
+      .demo-banner .demo-tag {
+        background: rgba(0,0,0,0.25);
+        border-radius: 999px;
+        padding: 2px 8px;
+        font-size: 10px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+      .demo-banner a {
+        color: #fff;
+        text-decoration: none;
+        background: rgba(255,255,255,0.18);
+        border-radius: 8px;
+        padding: 3px 10px;
+        transition: background 0.2s;
+        white-space: nowrap;
+        font-size: 11px;
+      }
+      .demo-banner a:hover { background: rgba(255,255,255,0.28); }
+      /* push app content below the banner when shown */
+      body.demo-active #mobile-app { padding-top: 40px; }
+    </style>
+    <script type="module" crossorigin src="/assets/order-qvYXzKiX.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
+    <link rel="stylesheet" crossorigin href="/assets/order-BzRIM3n9.css">
+  </head>
+  <body>
+    <!-- Demo banner (shown only in demo/GitHub Pages build) -->
+    <div class="demo-banner" id="demo-banner" style="display:none">
+      <span class="demo-tag">🎭 Demo</span>
+      <span>Data saved locally in your browser</span>
+      <a href="index.html">🖥️ Backoffice Dashboard →</a>
+    </div>
+    <script>
+      if (typeof __DEMO_MODE__ !== 'undefined' && __DEMO_MODE__ === true) {
+        document.getElementById('demo-banner').style.display = 'flex';
+        document.body.classList.add('demo-active');
+      }
+    </script>
+
+    <div id="mobile-app">
+      <!-- App Header -->
+      <header class="app-header">
+        <div class="header-left">
+          <span class="logo-orb"></span>
+          <div>
+            <h1>ProtoHub Express</h1>
+            <p class="status-indicator"><span class="dot green"></span> Live Offline-ready</p>
+          </div>
+        </div>
+        <button class="icon-button" id="history-toggle" aria-label="Order History">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg>
+        </button>
+      </header>
+
+      <!-- Horizontal Category Slider -->
+      <nav class="category-slider">
+        <button class="category-btn active" data-category="all">All Menu</button>
+        <button class="category-btn" data-category="mains">Mains</button>
+        <button class="category-btn" data-category="curry">Curry</button>
+        <button class="category-btn" data-category="salad">Salads</button>
+        <button class="category-btn" data-category="dessert">Desserts</button>
+      </nav>
+
+      <!-- Main Food Menu Grid -->
+      <main class="menu-container">
+        <div id="menu-grid" class="menu-grid">
+          <!-- Dynamically populated by order.ts -->
+        </div>
+      </main>
+
+      <!-- Sticky Bottom Cart Banner -->
+      <div id="bottom-cart-bar" class="bottom-cart-bar hidden">
+        <div class="cart-bar-info">
+          <span class="cart-count-badge" id="cart-badge-count">0</span>
+          <div>
+            <p>Your Basket</p>
+            <strong id="cart-bar-total">฿0.00</strong>
+          </div>
+        </div>
+        <button class="view-basket-btn" id="basket-toggle">View Basket</button>
+      </div>
+
+      <!-- Slide-Up Basket Drawer Overlay -->
+      <div id="basket-drawer-overlay" class="drawer-overlay hidden">
+        <div class="drawer-content basket-drawer">
+          <div class="drawer-header">
+            <h2>Your Basket</h2>
+            <button class="close-drawer" id="basket-close">&times;</button>
+          </div>
+          <div class="drawer-body">
+            <div id="basket-items-list" class="basket-items-list">
+              <!-- Dynamically populated by order.ts -->
+            </div>
+            
+            <div class="basket-summary">
+              <div class="summary-row">
+                <span>Subtotal</span>
+                <span id="summary-subtotal">฿0.00</span>
+              </div>
+              <div class="summary-row">
+                <span>Vat (7%)</span>
+                <span id="summary-vat">฿0.00</span>
+              </div>
+              <div class="summary-row grand-total">
+                <span>Total</span>
+                <span id="summary-total">฿0.00</span>
+              </div>
+            </div>
+          </div>
+          <div class="drawer-footer">
+            <button class="checkout-submit-btn" id="checkout-submit">Place Order</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide-Up Order History Drawer -->
+      <div id="history-drawer-overlay" class="drawer-overlay hidden">
+        <div class="drawer-content history-drawer">
+          <div class="drawer-header">
+            <h2>Order History</h2>
+            <button class="close-drawer" id="history-close">&times;</button>
+          </div>
+          <div class="drawer-body">
+            <div id="history-items-list" class="history-items-list">
+              <!-- Dynamically populated by order.ts -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Success Confirmation Modal -->
+      <div id="success-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+          <div class="success-icon-container">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h2>Order Received!</h2>
+          <p>Your order has been recorded locally and synced successfully.</p>
+          
+          <div class="receipt-container">
+            <div class="receipt-header">
+              <h3>ProtoHub Express</h3>
+              <p id="receipt-id">Order ID: -</p>
+              <p id="receipt-date">Date: -</p>
+            </div>
+            <div id="receipt-items" class="receipt-items">
+              <!-- Items populated by order.ts -->
+            </div>
+            <div class="receipt-total-row">
+              <span>Grand Total</span>
+              <strong id="receipt-total">฿0.00</strong>
+            </div>
+          </div>
+
+          <button class="close-modal-btn" id="success-close">Order Something Else</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+

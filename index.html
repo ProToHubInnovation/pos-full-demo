@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ProtoHub POS Backoffice</title>
+    <meta name="description" content="ProtoHub POS Backoffice — sales traceability, shift management, and reconciliation dashboard." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet" />
+    <style>
+      .demo-banner {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
+        background: linear-gradient(90deg, #06b6d4 0%, #3b82f6 100%);
+        color: #fff;
+        font-family: 'Outfit', sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        padding: 10px 20px;
+        box-shadow: 0 -4px 20px rgba(6, 182, 212, 0.3);
+      }
+      .demo-banner .demo-tag {
+        background: rgba(0,0,0,0.25);
+        border-radius: 999px;
+        padding: 3px 10px;
+        font-size: 11px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+      .demo-banner .demo-sep { opacity: 0.5; }
+      .demo-banner a {
+        color: #fff;
+        text-decoration: none;
+        background: rgba(255,255,255,0.18);
+        border-radius: 8px;
+        padding: 4px 12px;
+        transition: background 0.2s;
+        white-space: nowrap;
+      }
+      .demo-banner a:hover { background: rgba(255,255,255,0.28); }
+    </style>
+    <script type="module" crossorigin src="/assets/main-LEkHhzAJ.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
+    <link rel="stylesheet" crossorigin href="/assets/main-ZRrRLcFe.css">
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- Demo banner injected at runtime only when VITE_DEMO_MODE is true -->
+    <div class="demo-banner" id="demo-banner" style="display:none">
+      <span class="demo-tag">🎭 Demo</span>
+      <span>All data is stored locally in your browser</span>
+      <span class="demo-sep">|</span>
+      <a href="order.html">📱 Customer Ordering App →</a>
+    </div>
+    <script>
+      // Show banner only in demo builds
+      if (typeof __DEMO_MODE__ !== 'undefined' && __DEMO_MODE__ === true) {
+        document.getElementById('demo-banner').style.display = 'flex';
+      }
+    </script>
+  </body>
+</html>
+
